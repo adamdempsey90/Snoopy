@@ -1,0 +1,20 @@
+#!/bin/bash
+## This line is a comment, the following lines are for Moab
+#MOAB -l nodes=4:ppn=8
+#MOAB -l walltime=100:00:00
+#MOAB -N job9
+#MOAB -j oe
+
+#MSUB -l advres=b1002
+#MSUB -A b1002
+
+##### These are shell commands. Note that all MSUB commands come first.
+cd $PBS_O_WORKDIR
+export OMP_NUM_THREADS=1
+module load mpi
+ulimit -s unlimited
+# This has 16 different MPI jobs over 32 processors
+# uses higher % of CPU than 1 MPI process per node
+# might be more efficient to neglect OPEN-MP entirely
+# and do -np 32 instead...
+mpirun -np 64 -hostfile $PBS_NODEFILE snoopy

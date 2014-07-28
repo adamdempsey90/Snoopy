@@ -1,0 +1,5 @@
+#!/bin/bash
+rm *~; rm pinpong*; rm f.out; module load mpi;
+./configure FFTPATH=/home/amd616/fftw-3.3.3 --enable-mpi --enable-fftw-mpi 
+#--with-problem=RBwall;
+make -j;
